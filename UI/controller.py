@@ -14,12 +14,18 @@ class Controller:
         self._mese = 0
 
     def handle_umidita_media(self, e):
-        pass
+        self._view.lst_result.controls.clear()
+        medie = self._model.get_media_umidita(self._mese)
 
+        self._view.lst_result.controls.append(ft.Text("L'umidità nel mese selezionato è:"))
+        for m in medie:
+            self._view.lst_result.controls.append(ft.Text(f"{m["Localita"]}: {m['Media']}"))
+        self._view._page.update()
 
 
     def handle_sequenza(self, e):
-        pass
+        mese_selezionato = self._view.dd_mese.value
+        self._model.calcola_sequenza(mese_selezionato)
 
     def read_mese(self, e):
         self._mese = int(e.control.value)
