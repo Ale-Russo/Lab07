@@ -24,8 +24,15 @@ class Controller:
 
 
     def handle_sequenza(self, e):
+        self._view.lst_result.controls.clear()
         mese_selezionato = self._view.dd_mese.value
-        self._model.calcola_sequenza(mese_selezionato)
+        seq, costo = self._model.calcola_sequenza(mese_selezionato)
+        self._view.lst_result.controls.append(ft.Text(f"La sequenza ottima ha costo {costo} € ed è:"))
+        for s in seq:
+            self._view.lst_result.controls.append(ft.Text(f"{s.__str__()}"))
+        self._view._page.update()
+
+
 
     def read_mese(self, e):
         self._mese = int(e.control.value)
